@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, bold, codeBlock } = require('discord.js');
 
 module.exports = {
     data : new SlashCommandBuilder()
@@ -9,19 +9,24 @@ module.exports = {
                 .setName('value')
                 .setDescription('Value of the dice to be rolled')
                 .setRequired(true)
-                .setMinValue(1))
+                .setMinValue(0))
         .addIntegerOption(option =>
             option
                 .setName('quantity')
                 .setDescription('The amount of dice to roll')
-                .setMinValue(1)),
+                .setMinValue(0)),
     async execute(interaction) {
         const val = interaction.options.getInteger('value');
         const number = interaction.options.getInteger('quantity') ?? 1;
         var total = 0;
+        var rolls = []
         for (let i = 0; i < number; i++) {
-            total += Math.floor((Math.random() * val) + 1);
+            const roll = (Math.floor((Math.random() * val) + 1));
+            rolls.push(roll)
+            total += roll;
         }
-        await interaction.reply(`Total is ${total}`);
+        const reply = codeBlock(`Rolling ${number}d${val} for total: ${total}
+details: ${rolls}`);
+        await interaction.reply(reply);
     },
 };
