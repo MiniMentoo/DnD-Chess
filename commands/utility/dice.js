@@ -61,8 +61,8 @@ details: ${rolls}`);
                 }
                 const reply = codeBlock('md',`Rolling ${number}d${val} with advantage for: 
 #   ${finalTotal}
-roll one: ${rolls} = ${total}
-roll two: ${rolls2} = ${total2}`)
+first roll: ${rolls} = ${total}
+second roll: ${rolls2} = ${total2}`)
                 await reroll.update({ content: reply, components: []});
             } else if (reroll.customId === 'disadvantage') {
                 tuple = roll(val, number);
@@ -74,13 +74,14 @@ roll two: ${rolls2} = ${total2}`)
                 } else {
                     finalTotal = total;
                 }
-                const reply = codeBlock('md',`Rolling ${number}d${val} with advantage for: 
+                const reply = codeBlock('md',`Rolling ${number}d${val} with disadvantage for: 
 #   ${finalTotal}
-roll one: ${rolls} = ${total}
-roll two: ${rolls2} = ${total2}`)
+first roll: ${rolls} = ${total}
+second roll: ${rolls2} = ${total2}`)
                 await reroll.update({ content: reply, components: []});
             }
         } catch (e) {
+            await interaction.editReply({ components : []});
         }
     },
 };
