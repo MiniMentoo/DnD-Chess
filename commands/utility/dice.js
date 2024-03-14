@@ -14,17 +14,19 @@ module.exports = {
             option
                 .setName('quantity')
                 .setDescription('The amount of dice to roll')
-                .setMinValue(0)),
+                .setMinValue(0))
+        .addIntegerOption(option =>
+            option
+                .setName('take_highest')
+                .setDescription('The top x number of dice taken from result, negatives give lowest number instead')),
     async execute(interaction) {
         const val = interaction.options.getInteger('value');
         const number = interaction.options.getInteger('quantity') ?? 1;
+        const takeHighest = interaction.options.getInteger('take_highest') ?? 0;
         tuple = roll(val, number);
         const total = tuple[0];
         const rolls = tuple[1];
-
-        const reply = codeBlock('md',`Rolling ${number}d${val} for: 
-#   ${total}
-details: ${rolls}`);
+        const reply = creteOutput(total, rolls, takeHighest, number, val);
         
         const advantage = new ButtonBuilder()
             .setCustomId('advantage')
@@ -36,9 +38,12 @@ details: ${rolls}`);
             .setLabel('Disadvantage')
             .setStyle(ButtonStyle.Danger);
 
-        const row = new ActionRowBuilder()
-            .addComponents(advantage, disadvantage);
-        
+        var row = new ActionRowBuilder();
+        if (takeHighest === 0){
+            row = row.addComponents(advantage, disadvantage);      
+        } else {
+            row = row.addComponents(new ButtonBuilder().setLabel('No advantage for you :(').setURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ').setStyle(ButtonStyle.Link))
+        }
         const response = await interaction.reply({ 
             content : reply, 
             components : [row],
@@ -96,4 +101,50 @@ function roll(val, number) {
         total += roll;
     }
     return [total, rolls];
+}
+
+function takeHighest(rolls, number) {
+    rolls.sort();
+    rolls.reverse();
+    var total = 0;
+    var highest = [];
+    const limit = Math.min(number, rolls.length);
+    for (let i = 0; i < limit; i++) {
+        highest.push(rolls[i]);
+        total += rolls[i];
+    }
+    return [total, highest];
+}
+
+function takeLowest(rolls, number) {
+    rolls.sort();
+    var total = 0;
+    var lowest = [];
+    const limit = Math.min(number, rolls.length);
+    for (let i = 0; i < limit; i++) {
+        lowest.push(rolls[i]);
+        total += rolls[i];
+    }
+    return [total, lowest];
+}
+
+function creteOutput(total, rolls, highest, number, val) {
+    var reply = '';
+    if (highest > 0) {
+        const tuple = takeHighest(rolls, highest);
+        reply = codeBlock('md', `Rolling ${number}d${val} and taking highest ${highest} for:
+#   ${tuple[0]}
+details: ${tuple[1]} (${rolls})`);
+    } else if (highest < 0) {
+        const lowest = highest * -1;
+        const tuple = takeLowest(rolls, lowest);
+        reply = codeBlock('md', `Rolling ${number}d${val} and taking lowest ${lowest} for:
+#   ${tuple[0]}
+details: ${tuple[1]} (${rolls})`);
+    } else {
+        reply = codeBlock('md',`Rolling ${number}d${val} for: 
+#   ${total}
+details: ${rolls}`);
+    }
+    return reply;
 }
