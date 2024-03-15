@@ -13,7 +13,7 @@ module.exports = {
             option
                 .setName('quantity')
                 .setDescription('number of pings')
-                .setMinValue(0)),
+                .setMaxValue(100)),
     async execute(interaction) {
         const user = interaction.options.getUser('target') ?? interaction.user;
         const quantity = interaction.options.getInteger('quantity') ?? 1;
