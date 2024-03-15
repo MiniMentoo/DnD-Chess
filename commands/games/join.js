@@ -11,7 +11,7 @@ module.exports = {
             if(gameUsers.indexOf(interaction.user) === -1) {
                 gameUsers.push(interaction.user);
                 userNames = []
-                gameUsers.forEach((user) => userNames.push(`${user.displayName}`));
+                gameUsers.forEach((user) => userNames.push(`${user.displayName} `));
                 reply = codeBlock('md',`${interaction.user.displayName} has joined the game!
 current members:
 # ${userNames}`);
