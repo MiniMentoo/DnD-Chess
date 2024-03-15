@@ -97,7 +97,7 @@ function roll(val, number) {
     var rolls = []
     for (let i = 0; i < number; i++) {
         const roll = (Math.floor((Math.random() * val) + 1));
-        rolls.push(roll)
+        rolls.push(roll);
         total += roll;
     }
     return [total, rolls];
