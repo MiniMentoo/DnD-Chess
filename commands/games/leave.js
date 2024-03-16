@@ -13,7 +13,11 @@ module.exports = {
                 reply = {content : `You're not in this game!`, ephemeral : true};
             } else {
                 gameUsers.splice(index, 1);
-                reply = {content : `${interaction.user} has left the game!`};
+                reply = `${interaction.user} has left the game!`;
+                if (gameUsers.length === 0) {
+                    global.games.delete(interaction.guild.id);
+                    reply += "\n No user's left in game, ending current game!";
+                }
             }
         } else {
             reply = {content : `There is no game in this server!`, ephemeral : true};
