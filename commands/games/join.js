@@ -10,7 +10,9 @@ module.exports = {
             let gameUsers = global.games.get(interaction.guild.id);
             if(gameUsers.indexOf(interaction.user) === -1) {
                 gameUsers.push(interaction.user);
-                userNames = []
+                userNames = [];
+                let gameHands = global.hands.get(interaction.guild.id);
+                gameHands.set(interaction.user.id, []);
                 gameUsers.forEach((user) => userNames.push(`${user.displayName} `));
                 reply = codeBlock('md',`${interaction.user.displayName} has joined the game!
 current members:
@@ -20,8 +22,11 @@ current members:
             }
         } else {
             global.games.set(interaction.guild.id, []);
+            global.hands.set(interaction.guild.id, new Map());
             let gameUsers = global.games.get(interaction.guild.id);
             gameUsers.push(interaction.user);
+            let gameHands = global.hands.get(interaction.guild.id);
+            gameHands.set(interaction.user.id, []);
             userNames = [];
             gameUsers.forEach((user) => userNames.push(`${user.displayName}`));
             reply = codeBlock('md', `No active game found, created new game!

@@ -16,6 +16,7 @@ module.exports = {
                 reply = `${interaction.user} has left the game!`;
                 if (gameUsers.length === 0) {
                     global.games.delete(interaction.guild.id);
+                    global.hands.delete(interaction.guild.id);
                     reply += "\n No user's left in game, ending current game!";
                 }
             }
