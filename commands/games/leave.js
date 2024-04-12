@@ -13,6 +13,8 @@ module.exports = {
                 reply = {content : `You're not in this game!`, ephemeral : true};
             } else {
                 gameUsers.splice(index, 1);
+                serversHands = global.hands.get(interaction.guild.id);
+                userIndex = serversHands.delete(interaction.user);
                 reply = `${interaction.user} has left the game!`;
                 if (gameUsers.length === 0) {
                     global.games.delete(interaction.guild.id);
