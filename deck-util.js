@@ -20,6 +20,9 @@ function readDeck(filePath) {
 
 // Function to randomly pick a card from a deck
 function drawRandomCard(deck) {
+    if (!deck || !Array.isArray(deck.cards) || deck.cards.length === 0) {
+        throw new Error('Invalid deck structure or empty cards array');
+    }
     const cards = deck.cards;
     const randomIndex = Math.floor(Math.random() * cards.length);
     return cards[randomIndex];
