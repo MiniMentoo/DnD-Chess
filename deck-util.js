@@ -44,7 +44,6 @@ function displayCard(id) {
         default:
             throw new Error('Array passed into display card not a valid id');
     }
-    console.log(card);
     const embed = new EmbedBuilder()
         .setTitle(`${card.name} - ${card.id}`)
         .setDescription(card.description)
