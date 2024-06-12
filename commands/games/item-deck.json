@@ -1,19 +1,19 @@
 {
-    "deckName": "spell-deck",
+    "deckName": "item-deck",
     "cards": [
       {
         "name": "Fireball",
-        "id": "0000",
+        "id": "2000",
         "description": "Deal 4 damage to all creatures in 3-wide square, 4 square range, line of sight."
       },
       {
         "name": "A stone",
-        "id": "0001",
+        "id": "2001",
         "description": "Destroy any two flying creatures."
       },
       {
         "name": "Magic Missile",
-        "id": "0002",
+        "id": "2002",
         "description": "Deal 1 damage to any non-king creature, instant cast."
       }
     ]

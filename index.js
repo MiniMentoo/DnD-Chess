@@ -10,6 +10,8 @@ global.hands = new Map();
 (async() => {
 	console.log('Reading decks');
 	global.spell_deck = await readDeck("commands/games/spell-deck.json");
+	global.minion_deck = await readDeck("commands/games/minion-deck.json");
+	global.item_deck = await readDeck("commands/games/item-deck.json");
 	console.log('Deck reads ok!');
 }) ();
 
