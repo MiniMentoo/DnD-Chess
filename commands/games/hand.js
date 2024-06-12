@@ -29,15 +29,16 @@ function displayHand(hand) {
     let minions = []
     let items = []
     for (const card of hand) {
+        console.log(card);
         switch(card.id.charAt(0)) {
             case '0':
-                spells.push((card.name, card.id));
+                spells.push(`${card.name}-${card.id}`);
                 break;
             case '1':
-                minions.push((card.name, card.id));
+                minions.push(`${card.name}-${card.id}`);
                 break;
             case '2':
-                items.push((card.name, card.id));
+                items.push(`${card.name}-${card.id}`);
                 break;
             default:
                 throw new Error('Array passed into display hand not an array of cards');
