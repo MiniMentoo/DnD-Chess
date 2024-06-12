@@ -14,7 +14,7 @@ module.exports = {
             let serverHands = global.hands.get(interaction.guild.id);
             if (serverHands.has(interaction.user)) {
                 let userHand = serverHands.get(interaction.user);
-                card = drawRandomCard(spell_deck);
+                card = await drawRandomCard(spell_deck);
                 userHand.push(card)
                 reply = {content : `You drew the spell ${card.name}`, ephemeral : true};
             } else {

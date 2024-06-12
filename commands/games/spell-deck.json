@@ -8,12 +8,12 @@
       },
       {
         "name": "A stone",
-        "number": "002",
+        "id": "002",
         "description": "Destroy any two flying creatures."
       },
       {
         "name": "Magic Missile",
-        "number": "003",
+        "id": "003",
         "description": "Deal 1 damage to any non-king creature, instant cast."
       }
     ]

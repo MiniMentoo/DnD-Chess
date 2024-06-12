@@ -13,8 +13,7 @@ module.exports = {
                 if (userHand.length == 0){
                     reply = codeBlock('md', `Your hand is currently empty!`)
                 } else {
-                    reply = codeBlock('md', `Your hand currently has
-${userHand}`);}
+                    reply = displayHand(userHand);}
             } else {
                 reply = {content : `You don't have a hand in this server yet! Try joining a game with /join`, ephemeral : false};
             }
@@ -24,3 +23,33 @@ ${userHand}`);}
         await interaction.reply(reply);
     },
 };
+
+function displayHand(hand) {
+    let spells = []
+    let minions = []
+    let items = []
+    for (const card of hand) {
+        switch(card.id.charAt(0)) {
+            case '0':
+                spells.push((card.name, card.id));
+                break;
+            case '1':
+                minions.push((card.name, card.id));
+                break;
+            case '2':
+                items.push((card.name, card.id));
+                break;
+            default:
+                throw new Error('Array passed into display hand not an array of cards');
+        }
+    }
+    return codeBlock('md', `Your hand contains ${hand.length} card(s)
+# Spells
+${spells}
+
+# Minions
+${minions}
+
+# Items
+${items}`)
+}
