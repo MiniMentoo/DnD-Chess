@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { AttachmentBuilder, EmbedBuilder } = require('discord.js');
 
 // Function to read a JSON file and parse it
 function readDeck(filePath) {
@@ -26,6 +27,10 @@ function drawRandomCard(deck) {
     const cards = deck.cards;
     const randomIndex = Math.floor(Math.random() * cards.length);
     return cards[randomIndex];
+}
+
+function displayCard(card) {
+    
 }
 
 // Export the functions

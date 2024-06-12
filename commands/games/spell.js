@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, codeBlock} = require('discord.js');
-const { readDeck, drawRandomCard } = require('../../deck-util.js');
+const { drawRandomCard } = require('../../deck-util.js');
 
 
 module.exports = {
@@ -8,8 +8,6 @@ module.exports = {
         .setDescription('draws a spell from deck and adds it to your hand'),
     async execute(interaction) {
         let reply = `temp`;
-        const spell_deck = await readDeck("commands/games/spell-deck.json");
-
         if (global.hands.has(interaction.guild.id)){
             let serverHands = global.hands.get(interaction.guild.id);
             if (serverHands.has(interaction.user)) {
